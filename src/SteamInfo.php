@@ -1,4 +1,6 @@
-<?php namespace Invisnik\LaravelSteamAuth;
+<?php
+
+namespace LightAir\LumenSteamAuth;
 
 use Illuminate\Support\Fluent;
 
@@ -21,7 +23,7 @@ class SteamInfo extends Fluent
      * @param  string $value
      * @return string
      */
-    public function getSteamID ($value)
+    public function getSteamID($value)
     {
         if (is_null($value)) return '';
 

@@ -1,8 +1,11 @@
-<?php namespace Invisnik\LaravelSteamAuth;
+<?php
+
+namespace LightAir\LumenSteamAuth;
 
 use Illuminate\Support\ServiceProvider;
 
-class SteamServiceProvider extends ServiceProvider {
+class SteamServiceProvider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.

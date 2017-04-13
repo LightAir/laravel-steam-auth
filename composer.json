@@ -1,17 +1,23 @@
 {
-    "name": "invisnik/laravel-steam-auth",
-    "description": "Laravel Steam Auth",
-    "keywords": ["steam", "laravel", "auth"],
+    "name": "lightair/lumen-steam-auth",
+    "description": "Lumen Steam Auth",
+    "keywords": ["steam", "lumen", "auth"],
     "license": "MIT",
     "authors": [
         {
             "name": "Nikita Brytkov",
             "email": "invis.nik@gmail.com"
+        },
+        {
+            "name": "LightAir",
+            "email": "public@softroot.ru",
+            "homepage": "http://softroot.ru",
+            "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=5.5.0",
-        "laravel/framework": "5.*",
+        "php": ">=5.6.0",
+        "laravel/lumen-framework": "5.4.*",
         "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
@@ -19,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Invisnik\\LaravelSteamAuth\\": "src"
+            "LightAir\\LumenSteamAuth\\": "src"
         }
     }
 }
