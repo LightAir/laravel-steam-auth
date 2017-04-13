@@ -1,30 +1,25 @@
-# Steam authentication for laravel 5
-[![Code Climate](https://codeclimate.com/github/invisnik/laravel-steam-auth/badges/gpa.svg)](https://codeclimate.com/github/invisnik/laravel-steam-auth)
-[![Latest Stable Version](https://poser.pugx.org/invisnik/laravel-steam-auth/v/stable)](https://packagist.org/packages/invisnik/laravel-steam-auth)
-[![Total Downloads](https://poser.pugx.org/invisnik/laravel-steam-auth/downloads)](https://packagist.org/packages/invisnik/laravel-steam-auth)
-[![License](https://poser.pugx.org/invisnik/laravel-steam-auth/license.svg)](https://packagist.org/packages/invisnik/laravel-steam-auth)
+# Steam authentication for lumen 5.4.*
 
-This package is a Laravel 5 service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
+This package is a Lumen 5.4.* service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
 
 ## Installation Via Composer
 Add this to your `composer.json` file, in the require object:
 
-```javascript
-"invisnik/laravel-steam-auth": "2.*"
+```bash
+"lightair/lumen-auth-via-steam": "v5.4.0"
 ```
 
 After that, run `composer install` to install the package.
 
-Add the service provider to `app/config/app.php`, within the `providers` array.
+In file bootstrap/app.php uncomment `````$app->withFacades()````` and add:
 
 ```php
-'providers' => [
-	// ...
-	Invisnik\LaravelSteamAuth\SteamServiceProvider::class,
-]
+$app->register(LightAir\LumenAuthViaSteam\SteamServiceProvider::class);
 ```
 
 Lastly, publish the config file.
+
+
 
 ```
 php artisan vendor:publish
@@ -49,15 +44,15 @@ return [
 ];
 
 ```
-In `routes.php`
+In `routes/web.php`
 ```php
-get('login', 'AuthController@login');
+$app->get('/login',  'AuthController@login');
 ```
 In `AuthController`
 ```php
 namespace App\Http\Controllers;
 
-use Invisnik\LaravelSteamAuth\SteamAuth;
+use LightAir\LumenAuthViaSteam\SteamAuth;
 use App\User;
 use Auth;
 

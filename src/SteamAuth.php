@@ -1,6 +1,6 @@
 <?php
 
-namespace LightAir\LumenSteamAuth;
+namespace LightAir\LumenAuthViaSteam;
 
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
