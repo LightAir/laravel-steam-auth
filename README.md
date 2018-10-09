@@ -1,6 +1,6 @@
-# Steam authentication for lumen 5.4.*
+# Steam authentication for lumen 5.*
 
-This package is a Lumen 5.4.* service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
+This package is a Lumen 5* service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
 
 ## Installation Via Composer
 Add this to your `composer.json` file, in the require object:
