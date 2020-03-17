@@ -6,7 +6,7 @@ This package is a Lumen 5.4.* service provider which provides support for Steam 
 Add this to your `composer.json` file, in the require object:
 
 ```bash
-"lightair/lumen-auth-via-steam": "v5.4.0"
+"lightair/lumen-auth-via-steam": "v5.4.*"
 ```
 
 After that, run `composer install` to install the package.
@@ -18,7 +18,6 @@ $app->register(LightAir\LumenAuthViaSteam\SteamServiceProvider::class);
 ```
 
 Lastly, publish the config file.
-
 
 
 ```
