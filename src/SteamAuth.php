@@ -4,9 +4,11 @@ namespace LightAir\LumenAuthViaSteam;
 
 use Exception;
 use GuzzleHttp\Client as GuzzleClient;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Fluent;
+use Laravel\Lumen\Http\Redirector;
 
 class SteamAuth implements SteamAuthInterface
 {
@@ -18,7 +20,7 @@ class SteamAuth implements SteamAuthInterface
     /**
      * @var string
      */
-    const STEAM_INFO_URL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s';
+    const STEAM_INFO_URL = 'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s';
     /**
      * @var integer|null
      */
@@ -36,7 +38,7 @@ class SteamAuth implements SteamAuthInterface
      */
     private $request;
     /**
-     * @var \GuzzleHttp\Client;
+     * @var GuzzleClient;
      */
     private $guzzleClient;
 
@@ -44,7 +46,10 @@ class SteamAuth implements SteamAuthInterface
      * Create a new SteamAuth instance
      *
      * @param Request $request
+     *
      * @return void
+     *
+     * @throws Exception
      */
     public function __construct(Request $request)
     {
@@ -59,9 +64,9 @@ class SteamAuth implements SteamAuthInterface
      *
      * @param string $return A custom return to URL
      *
+     * @return string
      * @throws Exception
      *
-     * @return string
      */
     private function buildUrl($return = null)
     {
@@ -122,6 +127,7 @@ class SteamAuth implements SteamAuthInterface
         $this->parseSteamID();
         $this->parseInfo();
 
+        /** @noinspection PhpUndefinedFieldInspection */
         return $results->is_valid == "true";
     }
 
@@ -165,7 +171,8 @@ class SteamAuth implements SteamAuthInterface
     /**
      * Parse openID reponse to fluent object
      *
-     * @param  string $results openid reponse body
+     * @param string $results openid reponse body
+     *
      * @return Fluent
      */
     public function parseResults($results)
@@ -174,7 +181,9 @@ class SteamAuth implements SteamAuthInterface
         $lines = explode("\n", $results);
 
         foreach ($lines as $line) {
-            if (empty($line)) continue;
+            if (empty($line)) {
+                continue;
+            }
 
             $line = explode(':', $line, 2);
             $parsed[$line[0]] = $line[1];
@@ -190,7 +199,8 @@ class SteamAuth implements SteamAuthInterface
      */
     public function parseSteamID()
     {
-        preg_match("#^https://steamcommunity.com/openid/id/([0-9]{17,25})#", $this->request->get('openid_claimed_id'), $matches);
+        preg_match("#^https://steamcommunity.com/openid/id/([0-9]{17,25})#", $this->request->get('openid_claimed_id'),
+            $matches);
         $this->steamId = is_numeric($matches[1]) ? $matches[1] : 0;
     }
 
@@ -201,9 +211,12 @@ class SteamAuth implements SteamAuthInterface
      */
     public function parseInfo()
     {
-        if (is_null($this->steamId)) return;
+        if (is_null($this->steamId)) {
+            return;
+        }
 
-        $reponse = $this->guzzleClient->request('GET', sprintf(self::STEAM_INFO_URL, Config::get('steam-auth.api_key'), $this->steamId));
+        $reponse = $this->guzzleClient->request('GET',
+            sprintf(self::STEAM_INFO_URL, Config::get('steam-auth.api_key'), $this->steamId));
         $json = json_decode($reponse->getBody(), true);
 
         $this->steamInfo = new SteamInfo($json["response"]["players"][0]);
@@ -212,7 +225,7 @@ class SteamAuth implements SteamAuthInterface
     /**
      * Returns the redirect response to login
      *
-     * @return \Laravel\Lumen\Http\Redirector|\Illuminate\Http\RedirectResponse
+     * @return Redirector|RedirectResponse
      */
     public function redirect()
     {
@@ -248,5 +261,4 @@ class SteamAuth implements SteamAuthInterface
     {
         return $this->steamId;
     }
-
 }

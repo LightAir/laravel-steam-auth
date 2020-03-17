@@ -1,13 +1,15 @@
-# Steam authentication for lumen 5.4.*
+# Steam authentication for lumen 7.0.*
 
-This package is a Lumen 5.4.* service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
+This package is a Lumen 7.0.* service provider which provides support for Steam OpenID and is very easy to integrate with any project that requires Steam authentication.
 
 ## Installation Via Composer
 Add this to your `composer.json` file, in the require object:
 
 ```bash
-"lightair/lumen-auth-via-steam": "v5.4.*"
+"lightair/lumen-auth-via-steam": "v7.0.*"
 ```
+
+For v5.4 please use package v5.4.1
 
 After that, run `composer install` to install the package.
 
@@ -45,7 +47,7 @@ return [
 ```
 In `routes/web.php`
 ```php
-$app->get('/login',  'AuthController@login');
+$router->get('/login',  'AuthController@login');
 ```
 In `AuthController`
 ```php

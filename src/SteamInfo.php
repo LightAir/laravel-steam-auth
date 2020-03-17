@@ -7,6 +7,11 @@ use Illuminate\Support\Fluent;
 class SteamInfo extends Fluent
 {
 
+    /**
+     * SteamInfo constructor.
+     *
+     * @param $data
+     */
     public function __construct($data)
     {
         $steamID = isset($data['steamid']) ? $data['steamid'] : null;
@@ -20,7 +25,9 @@ class SteamInfo extends Fluent
 
     /**
      * Get SteamID
+     *
      * @param  string $value
+     *
      * @return string
      */
     public function getSteamID($value)
